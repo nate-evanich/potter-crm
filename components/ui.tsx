@@ -86,3 +86,12 @@ export function Badge({ tone = "neutral", children }: { tone?: "neutral" | "acti
     </span>
   );
 }
+
+export function ProgressBar({ active }: { active: boolean }) {
+  if (!active) return null;
+  return (
+    <div className="relative h-1 w-full overflow-hidden rounded-full bg-wizard-100" role="progressbar" aria-label="Saving…">
+      <div className="absolute inset-y-0 left-0 w-1/2 animate-progress-bar rounded-full bg-wizard-600" />
+    </div>
+  );
+}
