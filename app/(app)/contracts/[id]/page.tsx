@@ -19,8 +19,6 @@ export default async function ContractDetailPage({ params }: { params: Promise<{
   const paid = paidTotal(contract.payments);
   const balance = total - paid;
 
-  const remove = deleteContractAction.bind(null, contract.id);
-
   return (
     <>
       <div className="flex items-end justify-between mb-6">
