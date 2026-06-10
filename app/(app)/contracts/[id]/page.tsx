@@ -7,6 +7,7 @@ import { formatCents } from "@/lib/money";
 import { contractTotal, paidTotal, statusTone } from "@/lib/contract-math";
 import { PaymentForm } from "@/components/forms/payment-form";
 import { DeletePaymentButton } from "@/components/forms/delete-payment-button";
+import { DeleteContractButton } from "@/components/forms/delete-contract-button";
 
 export default async function ContractDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
