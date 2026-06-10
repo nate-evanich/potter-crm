@@ -134,9 +134,7 @@ export default async function ContractDetailPage({ params }: { params: Promise<{
         >
           Edit
         </Link>
-        <form action={remove}>
-          <Button variant="danger" type="submit">Delete contract</Button>
-        </form>
+        <DeleteContractButton contractId={contract.id} />
       </div>
     </>
   );
