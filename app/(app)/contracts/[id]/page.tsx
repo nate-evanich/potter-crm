@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { getContract } from "@/lib/db/contracts";
-import { Badge, Button, Card, Empty } from "@/components/ui";
+import { Badge, Card, Empty } from "@/components/ui";
 import { formatCents } from "@/lib/money";
 import { contractTotal, paidTotal, statusTone } from "@/lib/contract-math";
 import { PaymentForm } from "@/components/forms/payment-form";
