@@ -6,6 +6,10 @@ import { prisma } from "@/lib/prisma";
 import { signIn } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+export async function googleSignInAction() {
+  await signIn("google", { redirectTo: "/dashboard" });
+}
+
 const signupSchema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(8, "At least 8 characters"),
