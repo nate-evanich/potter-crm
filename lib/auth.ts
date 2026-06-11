@@ -34,6 +34,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.displayName,
+          role: "practitioner",
+        };
+      },
+    }),
+    Credentials({
+      id: "customer",
+      name: "Customer",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (raw) => {
+        const parsed = credentialsSchema.safeParse(raw);
+        if (!parsed.success) return null;
+        const { email, password } = parsed.data;
+
+        const customer = await prisma.customer.findUnique({ where: { email } });
+        if (!customer) return null;
+
+        const ok = await compare(password, customer.passwordHash);
+        if (!ok) return null;
+
+        return {
+          id: customer.id,
+          email: customer.email,
+          name: customer.displayName,
+          role: "customer",
         };
       },
     }),
@@ -42,12 +69,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     jwt: ({ token, user }) => {
       if (user) {
         token.userId = user.id as string;
+        token.role = (user as { role?: string }).role ?? "practitioner";
       }
       return token;
     },
     session: ({ session, token }) => {
       if (token?.userId && session.user) {
         session.user.id = token.userId as string;
+        session.user.role = (token.role as "practitioner" | "customer") ?? "practitioner";
       }
       return session;
     },
@@ -56,8 +85,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 export async function requireUser() {
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user?.id || session.user.role === "customer") {
     redirect("/login");
+  }
+  return { id: session.user.id, email: session.user.email!, name: session.user.name ?? "" };
+}
+
+export async function requireCustomer() {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "customer") {
+    redirect("/customer/login");
   }
   return { id: session.user.id, email: session.user.email!, name: session.user.name ?? "" };
 }
