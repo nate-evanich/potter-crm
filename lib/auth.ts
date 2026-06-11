@@ -85,8 +85,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 export async function requireUser() {
   const session = await auth();
-  if (!session?.user?.id) {
+  if (!session?.user?.id || session.user.role === "customer") {
     redirect("/login");
+  }
+  return { id: session.user.id, email: session.user.email!, name: session.user.name ?? "" };
+}
+
+export async function requireCustomer() {
+  const session = await auth();
+  if (!session?.user?.id || session.user.role !== "customer") {
+    redirect("/customer/login");
   }
   return { id: session.user.id, email: session.user.email!, name: session.user.name ?? "" };
 }
