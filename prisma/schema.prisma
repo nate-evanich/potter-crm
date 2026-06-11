@@ -7,12 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// NextAuth tables (Prisma adapter) — kept minimal; we use Credentials only.
+// NextAuth tables (Prisma adapter) — supports Credentials and Google OAuth.
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
   emailVerified DateTime?
-  passwordHash  String
+  passwordHash  String?
   displayName   String
   image         String?
   createdAt     DateTime  @default(now())
