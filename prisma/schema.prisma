@@ -163,6 +163,7 @@ model Review {
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
   providerId String
+  provider   User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
   rating     Int
   comment    String?  @db.Text
   createdAt  DateTime @default(now())
