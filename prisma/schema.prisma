@@ -22,6 +22,8 @@ model User {
   clients   Client[]
   offerings Offering[]
   contracts Contract[]
+  providers Provider[]
+  reviews   Review[]
 }
 
 model Account {
