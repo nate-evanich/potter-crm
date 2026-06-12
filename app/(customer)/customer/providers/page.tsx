@@ -2,14 +2,14 @@ import Link from "next/link";
 import { Card, Empty } from "@/components/ui";
 import { listProviders } from "@/lib/db/reviews";
 
-function Stars({ rating }: { rating: number | null }) {
+function RatingBadge({ rating }: { rating: number | null }) {
   if (rating == null) return <span className="text-sm text-stone-500">No reviews yet</span>;
-  const rounded = Math.round(rating);
   return (
-    <span className="text-sm text-amber-500" aria-label={`${rating.toFixed(1)} out of 5`}>
-      {"★".repeat(rounded)}
-      <span className="text-stone-300">{"★".repeat(5 - rounded)}</span>
-      <span className="ml-1 text-stone-600">{rating.toFixed(1)}</span>
+    <span
+      className="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-sm font-semibold text-amber-600"
+      aria-label={`${rating.toFixed(1)} out of 10`}
+    >
+      {rating.toFixed(1)} / 10
     </span>
   );
 }
@@ -38,7 +38,7 @@ export default async function ProvidersPage() {
                       {p.reviewCount} {p.reviewCount === 1 ? "review" : "reviews"}
                     </p>
                   </div>
-                  <Stars rating={p.averageRating} />
+                  <RatingBadge rating={p.averageRating} />
                 </div>
               </Card>
             </Link>

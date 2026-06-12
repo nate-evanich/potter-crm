@@ -5,12 +5,13 @@ import { ReviewForm } from "@/components/forms/review-form";
 import { requireCustomer } from "@/lib/auth";
 import { getCustomerReview, getProviderWithReviews } from "@/lib/db/reviews";
 
-function Stars({ rating }: { rating: number }) {
-  const rounded = Math.round(rating);
+function RatingBadge({ rating }: { rating: number }) {
   return (
-    <span className="text-amber-500" aria-label={`${rating} out of 5`}>
-      {"★".repeat(rounded)}
-      <span className="text-stone-300">{"★".repeat(5 - rounded)}</span>
+    <span
+      className="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-sm font-semibold text-amber-600"
+      aria-label={`${rating.toFixed(1)} out of 10`}
+    >
+      {rating.toFixed(1)} / 10
     </span>
   );
 }
@@ -43,10 +44,8 @@ export default async function ProviderDetailPage({
             "No reviews yet"
           ) : (
             <span className="flex items-center gap-2">
-              <Stars rating={provider.averageRating} />
-              <span>
-                {provider.averageRating.toFixed(1)} ({provider.reviewCount})
-              </span>
+              <RatingBadge rating={provider.averageRating} />
+              <span>({provider.reviewCount})</span>
             </span>
           )}
         </div>
@@ -78,7 +77,7 @@ export default async function ProviderDetailPage({
                 <span className="font-medium text-stone-800">
                   {review.customer.displayName}
                 </span>
-                <Stars rating={review.rating} />
+                <RatingBadge rating={review.rating} />
               </div>
               {review.comment && (
                 <p className="mt-2 whitespace-pre-wrap text-sm text-stone-700">{review.comment}</p>
