@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { upsertReview } from "@/lib/db/reviews";
 
 const reviewSchema = z.object({
-  rating: z.coerce.number().int().min(1, "Choose a rating").max(5, "Choose a rating"),
+  rating: z.coerce.number().int().min(1, "Choose a rating").max(10, "Choose a rating"),
   comment: z.string().max(2000).optional(),
 });
 
