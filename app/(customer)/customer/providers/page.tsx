@@ -38,7 +38,7 @@ export default async function ProvidersPage() {
                       {p.reviewCount} {p.reviewCount === 1 ? "review" : "reviews"}
                     </p>
                   </div>
-                  <Stars rating={p.averageRating} />
+                  <RatingBadge rating={p.averageRating} />
                 </div>
               </Card>
             </Link>
