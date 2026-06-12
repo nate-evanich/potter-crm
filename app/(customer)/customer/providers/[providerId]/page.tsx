@@ -77,7 +77,7 @@ export default async function ProviderDetailPage({
                 <span className="font-medium text-stone-800">
                   {review.customer.displayName}
                 </span>
-                <Stars rating={review.rating} />
+                <RatingBadge rating={review.rating} />
               </div>
               {review.comment && (
                 <p className="mt-2 whitespace-pre-wrap text-sm text-stone-700">{review.comment}</p>
