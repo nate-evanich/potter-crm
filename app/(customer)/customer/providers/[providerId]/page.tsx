@@ -44,10 +44,8 @@ export default async function ProviderDetailPage({
             "No reviews yet"
           ) : (
             <span className="flex items-center gap-2">
-              <Stars rating={provider.averageRating} />
-              <span>
-                {provider.averageRating.toFixed(1)} ({provider.reviewCount})
-              </span>
+              <RatingBadge rating={provider.averageRating} />
+              <span>({provider.reviewCount})</span>
             </span>
           )}
         </div>
