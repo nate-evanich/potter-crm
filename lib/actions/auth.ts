@@ -38,7 +38,7 @@ export async function signupAction(_prev: ActionResult, formData: FormData): Pro
   });
 
   await signIn("credentials", { email, password, redirect: false });
-  redirect("/dashboard");
+  return { success: true };
 }
 
 export async function loginAction(_prev: ActionResult, formData: FormData): Promise<ActionResult> {
