@@ -36,6 +36,7 @@ export function ContractCreateForm({
 
   function addItem() {
     setItems((prev) => [...prev, { key: Date.now(), offeringId: offerings[0]?.id ?? "", quantity: 1 }]);
+    window.alert("Line item added");
   }
   function removeItem(key: number) {
     setItems((prev) => (prev.length === 1 ? prev : prev.filter((it) => it.key !== key)));
