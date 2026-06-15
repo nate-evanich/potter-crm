@@ -12,7 +12,7 @@ const signupSchema = z.object({
   displayName: z.string().min(1, "Required").max(80),
 });
 
-export type ActionResult = { error?: string } | undefined;
+export type ActionResult = { error?: string; success?: boolean } | undefined;
 
 export async function signupAction(_prev: ActionResult, formData: FormData): Promise<ActionResult> {
   const parsed = signupSchema.safeParse({
