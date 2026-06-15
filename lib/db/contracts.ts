@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import type { ContractCreateInput, ContractUpdateInput } from "@/lib/validation/contracts";
 
-export function listContracts(userId: string) {
+export function listContracts(userId: string, clientId?: string) {
   return prisma.contract.findMany({
-    where: { userId },
+    where: { userId, ...(clientId ? { clientId } : {}) },
     orderBy: { createdAt: "desc" },
     include: {
       client: { select: { id: true, name: true } },
