@@ -1,14 +1,26 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth";
 import { listContracts } from "@/lib/db/contracts";
+import { listClientsForSelect } from "@/lib/db/clients";
 import { PageHeader } from "@/components/page-header";
 import { Badge, Card, Empty } from "@/components/ui";
 import { formatCents } from "@/lib/money";
 import { contractTotal, paidTotal, statusTone } from "@/lib/contract-math";
+import { ClientFilter } from "./_components/client-filter";
 
-export default async function ContractsPage() {
+export default async function ContractsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ clientId?: string }>;
+}) {
+  const { clientId } = await searchParams;
   const user = await requireUser();
-  const contracts = await listContracts(user.id);
+  const [contracts, clients] = await Promise.all([
+    listContracts(user.id, clientId || undefined),
+    listClientsForSelect(user.id),
+  ]);
+
+  const activeClientId = clientId ?? "";
 
   return (
     <>
@@ -17,14 +29,27 @@ export default async function ContractsPage() {
         subtitle="Magical agreements with your clients."
         action={{ href: "/contracts/new", label: "New contract" }}
       />
+      {clients.length > 0 && (
+        <ClientFilter clients={clients} selectedClientId={activeClientId} />
+      )}
       {contracts.length === 0 ? (
-        <Empty>
-          No contracts yet.{" "}
-          <Link href="/contracts/new" className="text-wizard-700 hover:underline">
-            Draft your first one
-          </Link>
-          .
-        </Empty>
+        activeClientId ? (
+          <Empty>
+            No contracts for this client.{" "}
+            <Link href="/contracts" className="text-wizard-700 hover:underline">
+              Clear filter
+            </Link>
+            .
+          </Empty>
+        ) : (
+          <Empty>
+            No contracts yet.{" "}
+            <Link href="/contracts/new" className="text-wizard-700 hover:underline">
+              Draft your first one
+            </Link>
+            .
+          </Empty>
+        )
       ) : (
         <Card className="p-0 overflow-hidden">
           <table className="w-full text-sm">
