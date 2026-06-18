@@ -18,6 +18,15 @@ const config: Config = {
           900: "#4c1d95",
         },
       },
+      keyframes: {
+        "progress-bar": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(300%)" },
+        },
+      },
+      animation: {
+        "progress-bar": "progress-bar 1.4s ease-in-out infinite",
+      },
     },
   },
   plugins: [],
