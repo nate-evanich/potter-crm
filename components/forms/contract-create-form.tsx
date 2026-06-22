@@ -167,7 +167,7 @@ export function ContractCreateForm({
 
       <FieldError message={state?.error} />
       <div className="flex items-center gap-2">
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" variant="purple" disabled={pending}>
           {pending ? "Saving…" : "Create contract"}
         </Button>
         <Link href="/contracts" className="text-sm text-stone-600 hover:underline">
