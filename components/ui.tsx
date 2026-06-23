@@ -1,4 +1,5 @@
 import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes, type ButtonHTMLAttributes, type SelectHTMLAttributes } from "react";
+import type React from "react";
 
 const inputCls =
   "w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-wizard-500 focus:outline-none focus:ring-1 focus:ring-wizard-500 disabled:opacity-50";
