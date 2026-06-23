@@ -4,7 +4,8 @@ import { requireUser } from "@/lib/auth";
 import { getClient } from "@/lib/db/clients";
 import { deleteClientAction } from "@/lib/actions/clients";
 import { PageHeader } from "@/components/page-header";
-import { Badge, Button, Card, Empty } from "@/components/ui";
+import { Badge, Card, Empty } from "@/components/ui";
+import { ConfirmDeleteForm } from "@/components/forms/confirm-delete-form";
 import { formatCents } from "@/lib/money";
 import { contractTotal, paidTotal, statusTone } from "@/lib/contract-math";
 
