@@ -40,18 +40,18 @@ const variantCls: Record<ButtonVariant, string> = {
   purple: "bg-purple-600 text-white hover:bg-purple-700 disabled:bg-purple-600/60",
 };
 
-export function Button({
-  variant = "primary",
-  className = "",
-  ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant }) {
+export const Button = forwardRef<
+  HTMLButtonElement,
+  ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant }
+>(function Button({ variant = "primary", className = "", ...props }, ref) {
   return (
     <button
+      ref={ref}
       {...props}
       className={`inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed ${variantCls[variant]} ${className}`}
     />
   );
-}
+});
 
 export function FieldError({ message }: { message?: string }) {
   if (!message) return null;
